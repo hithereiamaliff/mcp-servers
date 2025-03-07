@@ -5,7 +5,7 @@ This repository provides instructions and code for setting up a Perplexity searc
 ## Table of Contents
 
 - [Overview](#overview)
-- [Why Use Claude? Why Not Other AI Models?] (#why-use-claude-why-not-other-ai-models)
+- [Why Use Claude? Why Not Other AI Models?](#why-use-claude-why-not-other-ai-models)
 - [Why Use WSL Instead of Windows Node.js](#why-use-wsl-instead-of-windows-nodejs)
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
