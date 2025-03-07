@@ -1,4 +1,4 @@
-# MCP Servers Collection
+# Model Context Protocol (MCP) Servers Collection
 
 ## About This Repository
 
@@ -27,7 +27,7 @@ mcp-servers/
 
 ## Current Servers
 
-### mcp-perplexity-search
+### [mcp-perplexity-search](https://github.com/hithereiamaliff/mcp-servers/tree/main/mcp-perplexity-search)
 
 A server that integrates with the Perplexity API to enable AI models to perform internet searches. This allows AI assistants to access up-to-date information beyond their training data.
 
