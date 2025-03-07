@@ -417,11 +417,11 @@ When you make these requests, Claude will:
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/hithereiamaliff/mcp-servers?tab=MIT-1-ov-file) file for details.
 
 ## Acknowledgments
 
-- Claude Desktop by Anthropic
-- Perplexity AI for their Sonar Pro API
-- Microsoft for Windows Subsystem for Linux
-- Contributors to the Model Context Protocol
+- [Claude Desktop](https://support.anthropic.com/en/articles/10065433-installing-claude-for-desktop) by Anthropic
+- [Perplexity AI](https://docs.perplexity.ai/home) for their Sonar Pro API
+- [Microsoft for Windows Subsystem for Linux](https://learn.microsoft.com/en-us/windows/wsl/)
+- [Contributors to the Model Context Protocol](https://github.com/modelcontextprotocol)
