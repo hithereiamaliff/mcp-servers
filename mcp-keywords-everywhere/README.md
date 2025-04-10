@@ -131,7 +131,7 @@ To use this MCP server with Claude Desktop, you need to add it to the Claude Des
       "args": [
         "bash",
         "-c",
-        "export KEYWORDS_EVERYWHERE_API_KEY='YOUR_API_KEY' && /home/ainiza/.nvm/versions/node/v22.14.0/bin/node /home/ainiza/mcp-keywords-everywhere/index.js"
+        "export KEYWORDS_EVERYWHERE_API_KEY='YOUR_API_KEY' && /home/hithereiamaliff/.nvm/versions/node/v22.14.0/bin/node /home/hithereiamaliff/mcp-keywords-everywhere/index.js"
       ]
     }
   }
@@ -204,7 +204,7 @@ Here's an example of how an AI model might use the `get_keyword_data` tool:
 
 This would return volume, CPC, and competition data for these keywords in the US market with USD currency.
 
-Refer to the [Keywords Everywhere API Documentation](https://keywordseverywhere.com/api/docs/index.html) for detailed information on parameters and responses.
+Refer to the [Keywords Everywhere API Documentation](https://api.keywordseverywhere.com/docs/#/) for detailed information on parameters and responses.
 
 ## Dependencies
 
@@ -226,7 +226,7 @@ Contributions are welcome! If you'd like to contribute, please follow these step
 
 **Reporting Issues:**
 
-If you encounter any bugs or have suggestions for improvements, please open an issue on the [GitHub Issues page](https://github.com/YOUR_USERNAME/YOUR_REPOSITORY/issues). Provide as much detail as possible, including steps to reproduce the issue if applicable.
+If you encounter any bugs or have suggestions for improvements, please open an issue on the [GitHub Issues page](https://github.com/hithereiamaliff/mcp-servers/issues). Provide as much detail as possible, including steps to reproduce the issue if applicable.
 
 ## License
 
