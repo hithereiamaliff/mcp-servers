@@ -8,7 +8,7 @@ This project provides a Model Context Protocol (MCP) server that acts as a wrapp
 - [Prerequisites](#prerequisites)
 - [Detailed Installation Guide](#detailed-installation-guide)
   - [For Windows Users](#for-windows-users)
-  - [For macOS/Linux Users](#for-macos-linux-users)
+  - [For macOS/Linux Users](#for-macoslinux-users)
 - [Configuration](#configuration)
   - [Setting Up Your API Key](#setting-up-your-api-key)
   - [Making the API Key Persistent](#making-the-api-key-persistent-optional)
@@ -50,7 +50,7 @@ This project provides a Model Context Protocol (MCP) server that acts as a wrapp
 
 3. **Clone the repository**:
    - Navigate to your preferred directory: `cd ~`
-   - Clone the repo: `git clone https://github.com/YOUR_USERNAME/YOUR_REPOSITORY.git`
+   - Clone the repo: `git clone https://github.com/hithereiamaliff/mcp-servers/mcp-keywords-everywhere.git`
    - Navigate to the project: `cd mcp-keywords-everywhere`
    - Install dependencies: `npm install`
 
