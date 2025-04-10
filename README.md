@@ -16,13 +16,16 @@ This monorepo is organized as follows:
 
 ```
 mcp-servers/
-├── shared/                    # Common code used across multiple servers
+├── .git/                      # Git repository data
+├── .gitattributes             # Git attributes file
+├── LICENSE                    # License file
+├── README.md                  # Main repository documentation
 ├── mcp-perplexity-search/     # Server for Perplexity search integration
 ├── mcp-keywords-everywhere/   # Server for Keywords Everywhere API integration
-└── [additional-servers]/      # Other MCP server implementations will be added here
+└── [additional-servers]/      # Other MCP server implementations will be added in the future
 ```
 
-*NOTE: For now, apart from the `mcp-perplexity-search` and `mcp-keywords-everywhere` repos, the rest of the files and folders are still under development, and I will update and push the changes here accordingly.*
+*NOTE: This repository currently contains two MCP servers: `mcp-perplexity-search` and `mcp-keywords-everywhere`. Additional MCP server implementations may be added in the future.*
 
 ## Current Servers
 
