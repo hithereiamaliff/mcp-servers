@@ -2,6 +2,27 @@
 
 This project provides a Model Context Protocol (MCP) server that acts as a wrapper around the [Keywords Everywhere API](https://api.keywordseverywhere.com/docs/#/). It allows AI models to access keyword research data through the MCP standard.
 
+## Table of Contents
+
+- [Features](#features)
+- [Prerequisites](#prerequisites)
+- [Detailed Installation Guide](#detailed-installation-guide)
+  - [For Windows Users](#for-windows-users)
+  - [For macOS/Linux Users](#for-macos-linux-users)
+- [Configuration](#configuration)
+  - [Setting Up Your API Key](#setting-up-your-api-key)
+  - [Making the API Key Persistent](#making-the-api-key-persistent-optional)
+- [Running the Server](#running-the-server)
+  - [Basic Usage](#basic-usage)
+  - [Configuring with Claude Desktop](#configuring-with-claude-desktop)
+  - [Using with AI Models](#using-with-ai-models)
+  - [Troubleshooting](#troubleshooting)
+- [Available Tools](#available-tools)
+- [Example Usage](#example-usage)
+- [Dependencies](#dependencies)
+- [Contributing](#contributing)
+- [License](#license)
+
 ## Features
 
 *   Exposes various Keywords Everywhere API endpoints as MCP tools.
