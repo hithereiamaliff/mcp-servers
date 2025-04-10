@@ -43,7 +43,7 @@ This project provides a Model Context Protocol (MCP) server that acts as a wrapp
 2. **Clone the repository**:
    - Open Terminal
    - Navigate to your preferred directory: `cd ~/Documents` (or any location you prefer)
-   - Clone the repo: `git clone https://github.com/YOUR_USERNAME/YOUR_REPOSITORY.git`
+   - Clone the repo: `git clone https://github.com/hithereiamaliff/mcp-servers/mcp-keywords-everywhere.git`
    - Navigate to the project: `cd mcp-keywords-everywhere`
    - Install dependencies: `npm install`
 
