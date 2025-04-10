@@ -33,7 +33,7 @@ This MCP server provides a Perplexity search integration for Claude Desktop, ena
 ## Prerequisites
 
 * Node.js installed (version 14 or higher)
-* A Perplexity API key (Sonar Pro subscription required)
+* A Perplexity API key (Having a Perplexity account is required)
 * Claude Desktop application installed
 * Windows 10 or later with WSL2 enabled (for Windows users)
 
