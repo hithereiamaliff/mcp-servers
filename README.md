@@ -19,9 +19,7 @@ mcp-servers/
 ├── shared/                    # Common code used across multiple servers
 ├── mcp-perplexity-search/     # Server for Perplexity search integration
 ├── mcp-keywords-everywhere/   # Server for Keywords Everywhere API integration
-├── [additional-servers]/      # Other MCP server implementations will be added here
-├── docs/                      # Documentation for using and contributing to the servers
-└── examples/                  # Example configurations and usage patterns
+└── [additional-servers]/      # Other MCP server implementations will be added here
 ```
 
 *NOTE: For now, apart from the `mcp-perplexity-search` and `mcp-keywords-everywhere` repos, the rest of the files and folders are still under development, and I will update and push the changes here accordingly.*
