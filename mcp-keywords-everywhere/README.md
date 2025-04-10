@@ -94,12 +94,62 @@ node index.js
 
 The server will listen for MCP requests via standard input/output (stdio).
 
+### Configuring with Claude Desktop
+
+To use this MCP server with Claude Desktop, you need to add it to the Claude Desktop configuration file:
+
+1. Locate the Claude Desktop configuration file, typically at:
+   ```
+   %APPDATA%\Claude\claude_desktop_config.json
+   ```
+   You can access this by pressing Win+R and entering `%APPDATA%\Claude`
+
+2. Edit the configuration file to include the Keywords Everywhere MCP server:
+
+```json
+{
+  "mcpServers": {
+    "keywords-everywhere": {
+      "command": "wsl.exe",
+      "args": [
+        "bash",
+        "-c",
+        "export KEYWORDS_EVERYWHERE_API_KEY='YOUR_API_KEY' && /home/username/.nvm/versions/node/version/bin/node /home/username/mcp-keywords-everywhere/index.js"
+      ]
+    }
+  }
+}
+```
+
+3. Example Claude Desktop config file entry:
+
+```json
+{
+  "mcpServers": {
+    "keywords-everywhere": {
+      "command": "wsl.exe",
+      "args": [
+        "bash",
+        "-c",
+        "export KEYWORDS_EVERYWHERE_API_KEY='YOUR_API_KEY' && /home/ainiza/.nvm/versions/node/v22.14.0/bin/node /home/ainiza/mcp-keywords-everywhere/index.js"
+      ]
+    }
+  }
+}
+```
+
+Replace:
+- `username` with your WSL username
+- `version` with your Node.js version
+- `YOUR_API_KEY` with your Keywords Everywhere API key
+- Adjust the WSL paths to match your actual filesystem locations
+
 ### Using with AI Models
 
 This MCP server is designed to be used with AI models that support the Model Context Protocol. To use it:
 
-1. Start the server as described above
-2. Connect your AI model to the server
+1. Configure the server as described above
+2. Start Claude Desktop
 3. The AI model can now access the Keywords Everywhere API through the MCP tools
 
 ### Troubleshooting

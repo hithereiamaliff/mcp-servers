@@ -320,7 +320,24 @@ chmod +x index.js
       "args": [
         "bash",
         "-c",
-        "export PERPLEXITY_API_KEY='your_actual_api_key_here' && /home/username/.nvm/versions/node/version/bin/node /home/username/mcp-perplexity/index.js"
+        "export PERPLEXITY_API_KEY='YOUR_API_KEY' && /home/username/.nvm/versions/node/version/bin/node /home/username/mcp-perplexity/index.js"
+      ]
+    }
+  }
+}
+```
+
+3. Example Claude Desktop config file entry for the Perplexity MCP server:
+
+```json
+{
+  "mcpServers": {
+    "perplexity": {
+      "command": "wsl.exe",
+      "args": [
+        "bash",
+        "-c",
+        "export PERPLEXITY_API_KEY='YOUR_API_KEY' && /home/ainiza/.nvm/versions/node/v22.14.0/bin/node /home/ainiza/mcp-perplexity/index.js"
       ]
     }
   }
@@ -330,8 +347,8 @@ chmod +x index.js
 Replace:
 - `username` with your WSL username
 - `version` with your Node.js version (e.g., `v18.12.1`)
-- `your_actual_api_key_here` with your Perplexity API key
-- Adjust the paths to match your actual filesystem locations
+- `YOUR_API_KEY` with your Perplexity API key
+- Adjust the WSL paths to match your actual filesystem locations
 
 ### Step 3: Test the Setup
 

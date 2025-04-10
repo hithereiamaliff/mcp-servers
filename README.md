@@ -16,14 +16,15 @@ This monorepo is organized as follows:
 
 ```
 mcp-servers/
-├── shared/              # Common code used across multiple servers
-├── mcp-perplexity-search/  # Server for Perplexity search integration
-├── [additional-servers]/   # Other MCP server implementations will be added here
-├── docs/                # Documentation for using and contributing to the servers
-└── examples/            # Example configurations and usage patterns
+├── shared/                    # Common code used across multiple servers
+├── mcp-perplexity-search/     # Server for Perplexity search integration
+├── mcp-keywords-everywhere/   # Server for Keywords Everywhere API integration
+├── [additional-servers]/      # Other MCP server implementations will be added here
+├── docs/                      # Documentation for using and contributing to the servers
+└── examples/                  # Example configurations and usage patterns
 ```
 
-*NOTE: For now, apart from the `mcp-perplexity-search` repo, the rest of the files and folders are still under development, and I will update and push the changes here accordingly.*
+*NOTE: For now, apart from the `mcp-perplexity-search` and `mcp-keywords-everywhere` repos, the rest of the files and folders are still under development, and I will update and push the changes here accordingly.*
 
 ## Current Servers
 
@@ -36,6 +37,17 @@ Key features:
 - Configurable search parameters
 - Response formatting optimized for LLM consumption
 - Rate limiting and caching to manage API usage
+
+### [mcp-keywords-everywhere](https://github.com/hithereiamaliff/mcp-servers/tree/main/mcp-keywords-everywhere)
+
+A server that provides a wrapper around the [Keywords Everywhere API](https://api.keywordseverywhere.com/docs/#/), allowing AI models to access keyword research data and SEO metrics through the MCP standard.
+
+Key features:
+- Access to keyword volume, CPC, and competition data
+- Support for related keywords and "People Also Search For" data
+- Domain and URL keyword analysis capabilities
+- Backlink analysis tools
+- Traffic metrics for domains and URLs
 
 *(More servers to come soon once I have developed and tried myself)*
 
@@ -75,6 +87,83 @@ cp .env.example .env
 # Start the server
 npm start
 ```
+
+### Configuring MCP Servers in Claude Desktop
+
+To use these MCP servers with Claude Desktop, you need to add them to the Claude Desktop configuration file. Here are examples for the currently available servers:
+
+#### Location of Claude Desktop Config File
+
+The configuration file is typically located at:
+```
+%APPDATA%\Claude\claude_desktop_config.json
+```
+You can access this by pressing Win+R and entering `%APPDATA%\Claude`
+
+#### Example Configuration for Perplexity Search
+
+```json
+{
+  "mcpServers": {
+    "perplexity": {
+      "command": "wsl.exe",
+      "args": [
+        "bash",
+        "-c",
+        "export PERPLEXITY_API_KEY='YOUR_API_KEY' && /home/username/.nvm/versions/node/version/bin/node /home/username/mcp-perplexity/index.js"
+      ]
+    }
+  }
+}
+```
+
+#### Example Configuration for Keywords Everywhere
+
+```json
+{
+  "mcpServers": {
+    "keywords-everywhere": {
+      "command": "wsl.exe",
+      "args": [
+        "bash",
+        "-c",
+        "export KEYWORDS_EVERYWHERE_API_KEY='YOUR_API_KEY' && /home/username/.nvm/versions/node/version/bin/node /home/username/mcp-keywords-everywhere/index.js"
+      ]
+    }
+  }
+}
+```
+
+#### Combined Configuration (Multiple MCP Servers)
+
+```json
+{
+  "mcpServers": {
+    "perplexity": {
+      "command": "wsl.exe",
+      "args": [
+        "bash",
+        "-c",
+        "export PERPLEXITY_API_KEY='YOUR_API_KEY' && /home/username/.nvm/versions/node/version/bin/node /home/username/mcp-perplexity/index.js"
+      ]
+    },
+    "keywords-everywhere": {
+      "command": "wsl.exe",
+      "args": [
+        "bash",
+        "-c",
+        "export KEYWORDS_EVERYWHERE_API_KEY='YOUR_API_KEY' && /home/username/.nvm/versions/node/version/bin/node /home/username/mcp-keywords-everywhere/index.js"
+      ]
+    }
+  }
+}
+```
+
+Replace:
+- `username` with your WSL username
+- `version` with your Node.js version
+- `YOUR_API_KEY` with your respective API keys
+- Adjust the WSL paths to match your actual filesystem locations
 
 ## Contributing
 
