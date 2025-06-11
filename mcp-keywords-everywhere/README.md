@@ -28,6 +28,7 @@ This project provides a Model Context Protocol (MCP) server that acts as a wrapp
 *   Exposes various Keywords Everywhere API endpoints as MCP tools.
 *   Allows interaction with the Keywords Everywhere service through the MCP standard.
 *   Provides keyword volume, CPC, competition, and other SEO metrics.
+*   As of June 7th, 2025, all API methods are available for all subscription plans.
 
 ## Prerequisites
 
@@ -190,26 +191,28 @@ The server provides the following MCP tools, corresponding to Keywords Everywher
 *   `get_currencies`: Get a list of supported currencies.
 *   `get_keyword_data`: Get Volume, CPC, and competition for a set of keywords.
     *   _Input:_ `keywords` (array of strings), `country` (string, optional), `currency` (string, optional)
-*   `get_related_keywords`: Get related keywords (Requires Gold/Platinum plan).
+*   `get_related_keywords`: Get related keywords.
     *   _Input:_ `keyword` (string), `num` (integer, optional)
-*   `get_pasf_keywords`: Get 'People Also Search For' keywords (Requires Gold/Platinum plan).
+*   `get_pasf_keywords`: Get 'People Also Search For' keywords.
     *   _Input:_ `keyword` (string), `num` (integer, optional)
-*   `get_domain_keywords`: Get keywords a domain ranks for (Requires Gold/Platinum plan).
+*   `get_domain_keywords`: Get keywords a domain ranks for.
     *   _Input:_ `domain` (string), `country` (string, optional), `num` (integer, optional)
-*   `get_url_keywords`: Get keywords a URL ranks for (Requires Gold/Platinum plan).
+*   `get_url_keywords`: Get keywords a URL ranks for.
     *   _Input:_ `url` (string), `country` (string, optional), `num` (integer, optional)
-*   `get_domain_traffic`: Get traffic metrics for a domain (Requires Gold/Platinum plan).
+*   `get_domain_traffic`: Get traffic metrics for a domain.
     *   _Input:_ `domain` (string), `country` (string, optional)
-*   `get_url_traffic`: Get traffic metrics for a URL (Requires Gold/Platinum plan).
+*   `get_url_traffic`: Get traffic metrics for a URL.
     *   _Input:_ `url` (string), `country` (string, optional)
-*   `get_domain_backlinks`: Get backlinks for a domain (Requires Gold/Platinum plan).
+*   `get_domain_backlinks`: Get backlinks for a domain.
     *   _Input:_ `domain` (string), `num` (integer, optional)
-*   `get_unique_domain_backlinks`: Get unique referring domain backlinks (Requires Gold/Platinum plan).
+*   `get_unique_domain_backlinks`: Get unique referring domain backlinks.
     *   _Input:_ `domain` (string), `num` (integer, optional)
-*   `get_page_backlinks`: Get backlinks for a specific page (Requires Gold/Platinum plan).
+*   `get_page_backlinks`: Get backlinks for a specific page.
     *   _Input:_ `url` (string), `num` (integer, optional)
-*   `get_unique_page_backlinks`: Get unique referring domain backlinks for a page (Requires Gold/Platinum plan).
+*   `get_unique_page_backlinks`: Get unique referring domain backlinks for a page.
     *   _Input:_ `url` (string), `num` (integer, optional)
+
+> **Note:** As of June 7th, 2025, all API methods are available for all subscription plans. Previously, some features required Gold or Platinum plans.
 
 ## Example Usage
 

@@ -71,7 +71,7 @@ const TOOLS = {
   // Related Keywords
   get_related_keywords: {
     name: "get_related_keywords",
-    description: "Get related keywords based on a seed keyword (requires Gold/Platinum plan)",
+    description: "Get related keywords based on a seed keyword",
     inputSchema: {
       type: "object",
       properties: {
@@ -92,7 +92,7 @@ const TOOLS = {
   // People Also Search For
   get_pasf_keywords: {
     name: "get_pasf_keywords",
-    description: "Get 'People Also Search For' keywords based on a seed keyword (requires Gold/Platinum plan)",
+    description: "Get 'People Also Search For' keywords based on a seed keyword",
     inputSchema: {
       type: "object",
       properties: {
@@ -113,7 +113,7 @@ const TOOLS = {
   // Domain Keywords
   get_domain_keywords: {
     name: "get_domain_keywords",
-    description: "Get keywords that a domain ranks for (requires Gold/Platinum plan)",
+    description: "Get keywords that a domain ranks for",
     inputSchema: {
       type: "object",
       properties: {
@@ -139,7 +139,7 @@ const TOOLS = {
   // URL Keywords
   get_url_keywords: {
     name: "get_url_keywords",
-    description: "Get keywords that a URL ranks for (requires Gold/Platinum plan)",
+    description: "Get keywords that a URL ranks for",
     inputSchema: {
       type: "object",
       properties: {
@@ -165,7 +165,7 @@ const TOOLS = {
   // Traffic Metrics
   get_domain_traffic: {
     name: "get_domain_traffic",
-    description: "Get traffic metrics for a domain (requires Gold/Platinum plan)",
+    description: "Get traffic metrics for a domain",
     inputSchema: {
       type: "object",
       properties: {
@@ -185,7 +185,7 @@ const TOOLS = {
 
   get_url_traffic: {
     name: "get_url_traffic",
-    description: "Get traffic metrics for a URL (requires Gold/Platinum plan)",
+    description: "Get traffic metrics for a URL",
     inputSchema: {
       type: "object",
       properties: {
@@ -206,7 +206,7 @@ const TOOLS = {
   // Backlinks
   get_domain_backlinks: {
     name: "get_domain_backlinks",
-    description: "Get backlinks for a domain (requires Gold/Platinum plan)",
+    description: "Get backlinks for a domain",
     inputSchema: {
       type: "object",
       properties: {
@@ -226,7 +226,7 @@ const TOOLS = {
 
   get_unique_domain_backlinks: {
     name: "get_unique_domain_backlinks",
-    description: "Get unique domain backlinks (requires Gold/Platinum plan)",
+    description: "Get unique domain backlinks",
     inputSchema: {
       type: "object",
       properties: {
@@ -246,7 +246,7 @@ const TOOLS = {
 
   get_page_backlinks: {
     name: "get_page_backlinks",
-    description: "Get backlinks for a specific URL (requires Gold/Platinum plan)",
+    description: "Get backlinks for a specific URL",
     inputSchema: {
       type: "object",
       properties: {
@@ -266,7 +266,7 @@ const TOOLS = {
 
   get_unique_page_backlinks: {
     name: "get_unique_page_backlinks",
-    description: "Get unique backlinks for a specific URL (requires Gold/Platinum plan)",
+    description: "Get unique backlinks for a specific URL",
     inputSchema: {
       type: "object",
       properties: {
@@ -291,7 +291,7 @@ const server = new McpServer({
 });
 
 // Helper function for API calls
-async function makeApiCall(endpoint, data = null) {
+async function makeApiCall(endpoint, data = null, retryCount = 0) {
   try {
     const url = `${BASE_URL}/${endpoint}`;
     console.error(`Calling Keywords Everywhere API: ${endpoint}`);
@@ -318,9 +318,52 @@ async function makeApiCall(endpoint, data = null) {
     
     return response.data;
   } catch (error) {
-    console.error(`Error calling Keywords Everywhere API (${endpoint}):`, 
-      error.response?.data?.message || error.response?.data || error.message);
-    throw error;
+    // Extract detailed error information
+    const statusCode = error.response?.status;
+    const errorMessage = error.response?.data?.message || error.response?.data || error.message;
+    
+    // Log detailed error information
+    console.error(`Error calling Keywords Everywhere API (${endpoint}):`, {
+      statusCode,
+      errorMessage,
+      endpoint,
+      data
+    });
+    
+    // Handle specific error codes
+    if (statusCode === 400) {
+      // For 400 Bad Request errors, provide more helpful error messages
+      let enhancedMessage = `Bad Request (400): ${errorMessage}`;
+      
+      // Add specific guidance based on common 400 errors
+      if (errorMessage.includes("credit") || errorMessage.includes("credits")) {
+        enhancedMessage += ". You may need to add more credits to your Keywords Everywhere account.";
+      } else if (errorMessage.includes("subscription") || errorMessage.includes("plan")) {
+        enhancedMessage += ". This may be due to a subscription plan limitation. Please check your current plan.";
+      } else if (errorMessage.includes("limit") || errorMessage.includes("rate")) {
+        enhancedMessage += ". You may have hit a rate limit. Try again later.";
+      }
+      
+      const customError = new Error(enhancedMessage);
+      customError.statusCode = statusCode;
+      customError.originalError = error;
+      throw customError;
+    } else if (statusCode === 401) {
+      throw new Error(`Authentication failed (401): Please check your API key`);
+    } else if (statusCode === 429) {
+      // Rate limiting - implement retry with exponential backoff
+      if (retryCount < 3) {
+        const delay = Math.pow(2, retryCount) * 1000; // Exponential backoff: 1s, 2s, 4s
+        console.error(`Rate limited. Retrying in ${delay}ms...`);
+        await new Promise(resolve => setTimeout(resolve, delay));
+        return makeApiCall(endpoint, data, retryCount + 1);
+      } else {
+        throw new Error(`Rate limit exceeded (429): Too many requests. Please try again later.`);
+      }
+    } else {
+      // For other errors, pass through with some additional context
+      throw new Error(`API Error (${statusCode || 'unknown'}): ${errorMessage}`);
+    }
   }
 }
 
