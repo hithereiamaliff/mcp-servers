@@ -1,257 +1,157 @@
-# MCP Keywords Everywhere Server
+# Keywords Everywhere MCP Server
 
-This project provides a Model Context Protocol (MCP) server that acts as a wrapper around the [Keywords Everywhere API](https://api.keywordseverywhere.com/docs/#/). It allows AI models to access keyword research data through the MCP standard.
-
-## Table of Contents
-
-- [Features](#features)
-- [Prerequisites](#prerequisites)
-- [Detailed Installation Guide](#detailed-installation-guide)
-  - [For Windows Users](#for-windows-users)
-  - [For macOS/Linux Users](#for-macoslinux-users)
-- [Configuration](#configuration)
-  - [Setting Up Your API Key](#setting-up-your-api-key)
-  - [Making the API Key Persistent](#making-the-api-key-persistent-optional)
-- [Running the Server](#running-the-server)
-  - [Basic Usage](#basic-usage)
-  - [Configuring with Claude Desktop](#configuring-with-claude-desktop)
-  - [Using with AI Models](#using-with-ai-models)
-  - [Troubleshooting](#troubleshooting)
-- [Available Tools](#available-tools)
-- [Example Usage](#example-usage)
-- [Dependencies](#dependencies)
-- [Contributing](#contributing)
-- [License](#license)
+A Model Context Protocol (MCP) server that provides access to the Keywords Everywhere API for SEO research and keyword analysis. This server enables AI assistants like Claude to perform keyword research, analyze search volumes, get competition data, and access various SEO metrics.
 
 ## Features
 
-*   Exposes various Keywords Everywhere API endpoints as MCP tools.
-*   Allows interaction with the Keywords Everywhere service through the MCP standard.
-*   Provides keyword volume, CPC, competition, and other SEO metrics.
-*   As of June 7th, 2025, all API methods are available for all subscription plans.
+- **Keyword Data Analysis**: Get search volume, CPC, and competition data for keywords
+- **Related Keywords**: Find related keywords and "People Also Search For" suggestions
+- **Domain Analysis**: Analyze what keywords a domain or URL ranks for
+- **Traffic Metrics**: Get traffic estimates and costs for domains and URLs
+- **Backlink Analysis**: Retrieve backlink data for domains and pages
+- **Account Management**: Check your Keywords Everywhere credit balance
+- **Multi-Country Support**: Analyze keywords across different countries and currencies
 
-## Prerequisites
+## Installation
 
-*   Node.js installed (version 14 or higher).
-*   A Keywords Everywhere API key. Get yours from [https://keywordseverywhere.com/](https://keywordseverywhere.com/).
+### Prerequisites
 
-## Detailed Installation Guide
+- Node.js 16.0.0 or higher
+- A Keywords Everywhere API key (get one from [Keywords Everywhere](https://keywordseverywhere.com/))
 
-### For Windows Users
+### Quick Installation (NPX)
 
-1. **Ensure WSL is installed and set up**:
-   - Open PowerShell as Administrator and run: `wsl --install` (if not already installed)
-   - Follow the prompts to set up a Linux distribution
+The easiest way to use this MCP server is with npx:
 
-2. **Install Node.js in WSL**:
-   - Open your WSL terminal
-   - Update package lists: `sudo apt update`
-   - Install Node.js: `sudo apt install nodejs npm`
-   - Verify installation: `node --version`
+```bash
+npx mcp-keywords-everywhere
+```
 
-3. **Clone the repository**:
-   - Navigate to your preferred directory: `cd ~`
-   - Clone the repo: `git clone https://github.com/hithereiamaliff/mcp-servers/mcp-keywords-everywhere.git`
-   - Navigate to the project: `cd mcp-keywords-everywhere`
-   - Install dependencies: `npm install`
+### Global Installation
 
-### For macOS/Linux Users
-
-1. **Install Node.js** (if not already installed):
-   - macOS: Use Homebrew: `brew install node`
-   - Linux: Use package manager: `sudo apt install nodejs npm` (Ubuntu/Debian) or equivalent
-   - Verify installation: `node --version`
-
-2. **Clone the repository**:
-   - Open Terminal
-   - Navigate to your preferred directory: `cd ~/Documents` (or any location you prefer)
-   - Clone the repo: `git clone https://github.com/hithereiamaliff/mcp-servers/mcp-keywords-everywhere.git`
-   - Navigate to the project: `cd mcp-keywords-everywhere`
-   - Install dependencies: `npm install`
+```bash
+npm install -g mcp-keywords-everywhere
+```
 
 ## Configuration
 
-### Setting Up Your API Key
+### For Claude Desktop
 
-You need to set your Keywords Everywhere API key as an environment variable:
+Add the following to your Claude Desktop configuration file:
 
-*   **Windows (Command Prompt):**
-    ```bash
-    set KEYWORDS_EVERYWHERE_API_KEY=YOUR_API_KEY
-    ```
-*   **Windows (PowerShell):**
-    ```powershell
-    $env:KEYWORDS_EVERYWHERE_API_KEY = "YOUR_API_KEY"
-    ```
-*   **Windows (WSL) / Linux / macOS:**
-    ```bash
-    export KEYWORDS_EVERYWHERE_API_KEY=YOUR_API_KEY
-    ```
+**Location:**
+- **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
+- **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
 
-Replace `YOUR_API_KEY` with your actual key from Keywords Everywhere.
+**Configuration:**
+```json
+{
+  "mcpServers": {
+    "keywords-everywhere": {
+      "command": "npx",
+      "args": ["-y", "mcp-keywords-everywhere"],
+      "env": {
+        "KEYWORDS_EVERYWHERE_API_KEY": "your_api_key_here"
+      }
+    }
+  }
+}
+```
 
-### Making the API Key Persistent (Optional)
+### For Other MCP Clients
 
-To avoid setting the API key each time you open a new terminal:
-
-*   **Windows**: Create a `.env` file in the project root with:
-    ```
-    KEYWORDS_EVERYWHERE_API_KEY=YOUR_API_KEY
-    ```
-    Then modify the `index.js` file to use a package like `dotenv` (requires additional setup).
-
-*   **WSL/Linux/macOS**: Add the export command to your shell profile:
-    - Bash: `echo 'export KEYWORDS_EVERYWHERE_API_KEY=YOUR_API_KEY' >> ~/.bashrc`
-    - Zsh: `echo 'export KEYWORDS_EVERYWHERE_API_KEY=YOUR_API_KEY' >> ~/.zshrc`
-
-## Running the Server
-
-### Basic Usage
-
-Start the MCP server:
+If you're using other MCP clients, you can run the server directly:
 
 ```bash
-node index.js
+KEYWORDS_EVERYWHERE_API_KEY=your_api_key_here npx mcp-keywords-everywhere
 ```
-
-The server will listen for MCP requests via standard input/output (stdio).
-
-### Configuring with Claude Desktop
-
-To use this MCP server with Claude Desktop, you need to add it to the Claude Desktop configuration file:
-
-1. Locate the Claude Desktop configuration file, typically at:
-   ```
-   %APPDATA%\Claude\claude_desktop_config.json
-   ```
-   You can access this by pressing Win+R and entering `%APPDATA%\Claude`
-
-2. Edit the configuration file to include the Keywords Everywhere MCP server:
-
-```json
-{
-  "mcpServers": {
-    "keywords-everywhere": {
-      "command": "wsl.exe",
-      "args": [
-        "bash",
-        "-c",
-        "export KEYWORDS_EVERYWHERE_API_KEY='YOUR_API_KEY' && /home/username/.nvm/versions/node/version/bin/node /home/username/mcp-keywords-everywhere/index.js"
-      ]
-    }
-  }
-}
-```
-
-3. Example Claude Desktop config file entry:
-
-```json
-{
-  "mcpServers": {
-    "keywords-everywhere": {
-      "command": "wsl.exe",
-      "args": [
-        "bash",
-        "-c",
-        "export KEYWORDS_EVERYWHERE_API_KEY='YOUR_API_KEY' && /home/hithereiamaliff/.nvm/versions/node/v22.14.0/bin/node /home/hithereiamaliff/mcp-keywords-everywhere/index.js"
-      ]
-    }
-  }
-}
-```
-
-Replace:
-- `username` with your WSL username
-- `version` with your Node.js version
-- `YOUR_API_KEY` with your Keywords Everywhere API key
-- Adjust the WSL paths to match your actual filesystem locations
-
-### Using with AI Models
-
-This MCP server is designed to be used with AI models that support the Model Context Protocol. To use it:
-
-1. Configure the server as described above
-2. Start Claude Desktop
-3. The AI model can now access the Keywords Everywhere API through the MCP tools
-
-### Troubleshooting
-
-If you encounter issues:
-
-- **"API key not found"**: Make sure you've set the environment variable correctly
-- **Connection issues**: Check your internet connection and Keywords Everywhere API status
-- **Permission errors**: On Linux/macOS, you might need to make the script executable: `chmod +x index.js`
 
 ## Available Tools
 
-The server provides the following MCP tools, corresponding to Keywords Everywhere API endpoints:
+### Account Management
+- `get_credits` - Check your account's credit balance
+- `get_countries` - Get list of supported countries
+- `get_currencies` - Get list of supported currencies
 
-*   `get_credits`: Get your account's credit balance.
-*   `get_countries`: Get a list of supported countries.
-*   `get_currencies`: Get a list of supported currencies.
-*   `get_keyword_data`: Get Volume, CPC, and competition for a set of keywords.
-    *   _Input:_ `keywords` (array of strings), `country` (string, optional), `currency` (string, optional)
-*   `get_related_keywords`: Get related keywords.
-    *   _Input:_ `keyword` (string), `num` (integer, optional)
-*   `get_pasf_keywords`: Get 'People Also Search For' keywords.
-    *   _Input:_ `keyword` (string), `num` (integer, optional)
-*   `get_domain_keywords`: Get keywords a domain ranks for.
-    *   _Input:_ `domain` (string), `country` (string, optional), `num` (integer, optional)
-*   `get_url_keywords`: Get keywords a URL ranks for.
-    *   _Input:_ `url` (string), `country` (string, optional), `num` (integer, optional)
-*   `get_domain_traffic`: Get traffic metrics for a domain.
-    *   _Input:_ `domain` (string), `country` (string, optional)
-*   `get_url_traffic`: Get traffic metrics for a URL.
-    *   _Input:_ `url` (string), `country` (string, optional)
-*   `get_domain_backlinks`: Get backlinks for a domain.
-    *   _Input:_ `domain` (string), `num` (integer, optional)
-*   `get_unique_domain_backlinks`: Get unique referring domain backlinks.
-    *   _Input:_ `domain` (string), `num` (integer, optional)
-*   `get_page_backlinks`: Get backlinks for a specific page.
-    *   _Input:_ `url` (string), `num` (integer, optional)
-*   `get_unique_page_backlinks`: Get unique referring domain backlinks for a page.
-    *   _Input:_ `url` (string), `num` (integer, optional)
+### Keyword Research
+- `get_keyword_data` - Get volume, CPC, and competition data for keywords
+- `get_related_keywords` - Find related keywords based on a seed keyword
+- `get_pasf_keywords` - Get "People Also Search For" keywords
 
-> **Note:** As of June 7th, 2025, all API methods are available for all subscription plans. Previously, some features required Gold or Platinum plans.
+### Domain Analysis
+- `get_domain_keywords` - Get keywords that a domain ranks for
+- `get_url_keywords` - Get keywords that a specific URL ranks for
+- `get_domain_traffic` - Get traffic metrics for a domain
+- `get_url_traffic` - Get traffic metrics for a URL
 
-## Example Usage
+### Backlink Analysis
+- `get_domain_backlinks` - Get backlinks for a domain
+- `get_unique_domain_backlinks` - Get unique domain backlinks
+- `get_page_backlinks` - Get backlinks for a specific page
+- `get_unique_page_backlinks` - Get unique backlinks for a page
 
-Here's an example of how an AI model might use the `get_keyword_data` tool:
+## Usage Examples
 
-```json
-{
-  "keywords": ["seo tools", "keyword research", "backlink checker"],
-  "country": "us",
-  "currency": "usd"
-}
+### Basic Keyword Research
+```
+"Get keyword data for 'SEO tools' and 'keyword research' for Malaysia"
 ```
 
-This would return volume, CPC, and competition data for these keywords in the US market with USD currency.
+### Domain Analysis
+```
+"What keywords does example.com rank for?"
+```
 
-Refer to the [Keywords Everywhere API Documentation](https://api.keywordseverywhere.com/docs/#/) for detailed information on parameters and responses.
+### Traffic Analysis
+```
+"Get traffic metrics for https://example.com"
+```
 
-## Dependencies
+### Backlink Research
+```
+"Show me the top 20 backlinks for example.com"
+```
 
-*   `@modelcontextprotocol/sdk`: For creating the MCP server.
-*   `axios`: For making HTTP requests to the Keywords Everywhere API.
-*   `zod`: For schema validation (used internally).
+## API Key Setup
+
+1. Sign up at [Keywords Everywhere](https://keywordseverywhere.com/)
+2. Purchase credits for API access
+3. Get your API key from the dashboard
+4. Add the API key to your environment variables or MCP configuration
+
+## Error Handling
+
+The server includes comprehensive error handling:
+
+- **Authentication errors**: Clear messages for invalid API keys
+- **Credit exhaustion**: Helpful messages when credits run out
+- **Rate limiting**: Automatic retry with exponential backoff
+- **Bad requests**: Detailed error messages with suggestions
 
 ## Contributing
 
-Contributions are welcome! If you'd like to contribute, please follow these steps:
-
-1.  **Fork the repository** on GitHub.
-2.  **Clone your fork** locally (`git clone git@github.com:YOUR_USERNAME/YOUR_REPOSITORY.git`).
-3.  **Create a new branch** for your feature or bug fix (`git checkout -b feature/your-feature-name` or `bugfix/your-bug-fix-name`).
-4.  **Make your changes** and commit them with clear messages.
-5.  **Push your branch** to your fork (`git push origin feature/your-feature-name`).
-6.  **Open a Pull Request** from your fork's branch to the main repository's `main` (or `master`) branch.
-7.  Clearly describe the changes you've made in the Pull Request description.
-
-**Reporting Issues:**
-
-If you encounter any bugs or have suggestions for improvements, please open an issue on the [GitHub Issues page](https://github.com/hithereiamaliff/mcp-servers/issues). Provide as much detail as possible, including steps to reproduce the issue if applicable.
+Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
-This project is licensed under the MIT License. See the LICENSE file for details.
+MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Support
+
+- **GitHub Issues**: [Report bugs or request features](https://github.com/hithereiamaliff/mcp-servers/issues)
+- **Keywords Everywhere API**: [Official documentation](https://keywordseverywhere.com/api)
+
+## Changelog
+
+### 1.0.0
+- Initial release
+- Support for all major Keywords Everywhere API endpoints
+- Comprehensive error handling and retry logic
+- MCP protocol compliance
+- Cross-platform compatibility
+
+## Related
+
+- [Model Context Protocol](https://modelcontextprotocol.io/)
+- [Keywords Everywhere](https://keywordseverywhere.com/)
+- [Claude Desktop](https://claude.ai/)

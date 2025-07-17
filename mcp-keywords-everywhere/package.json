@@ -3,16 +3,23 @@
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
+  "description": "MCP server for Keywords Everywhere API integration",
+  "bin": {
+    "mcp-keywords-everywhere": "./index.js"
+  },
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "keywords": ["mcp", "keywords", "seo", "model-context-protocol"],
+  "author": "hithereiamaliff",
+  "license": "MIT",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.6.0",
     "axios": "^1.8.1",
     "zod": "^3.22.4"
+  },
+  "engines": {
+    "node": ">=16.0.0"
   }
 }

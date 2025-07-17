@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import axios from "axios";
@@ -286,8 +288,8 @@ const TOOLS = {
 };
 
 const server = new McpServer({
-  name: "example-servers/keywords-everywhere", 
-  version: "0.1.0"
+  name: "mcp-keywords-everywhere", 
+  version: "1.0.0"
 });
 
 // Helper function for API calls
