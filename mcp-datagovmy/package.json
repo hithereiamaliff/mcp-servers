@@ -1,0 +1,25 @@
+{
+  "name": "datagovmy-mcp",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "module": "src/index.js",
+  "scripts": {
+    "dev": "npx @smithery/cli dev --config smithery.config.cjs",
+    "build": "npx @smithery/cli build --config smithery.config.cjs",
+    "start": "node start-server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@smithery/cli": "^1.2.16",
+    "tsx": "^4.20.3"
+  },
+  "dependencies": {
+    "axios": "^1.11.0",
+    "dotenv": "^17.2.1",
+    "p-limit": "^6.2.0"
+  }
+}
