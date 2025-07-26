@@ -7,7 +7,7 @@ module.exports = {
   // Server configuration
   transport: 'http', // Use HTTP transport instead of SSE
   cors: true, // Enable CORS for cross-origin requests
-  name: 'datagovmy-mcp',
+  name: 'datagovmy-mcp-hithereiamaliff',
   displayName: 'Malaysia Open Data MCP',
   description: 'MCP server for accessing Malaysia\'s Open Data APIs',
   version: '1.0.0',
