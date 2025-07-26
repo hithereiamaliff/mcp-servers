@@ -4,6 +4,8 @@
 
 A Model Context Protocol (MCP) server that provides access to the Keywords Everywhere API for SEO research and keyword analysis. This server enables AI assistants like Claude to perform keyword research, analyze search volumes, get competition data, and access various SEO metrics.
 
+Do note that this is **NOT** an official MCP server by Keywords Everywhere.
+
 ## Features
 
 - **Keyword Data Analysis**: Get search volume, CPC, and competition data for keywords
@@ -161,7 +163,7 @@ MIT License - see the [LICENSE](LICENSE) file for details.
 ## Support
 
 - **GitHub Issues**: [Report bugs or request features](https://github.com/hithereiamaliff/mcp-servers/issues)
-- **Keywords Everywhere API**: [Official documentation](https://keywordseverywhere.com/api)
+- **Keywords Everywhere API**: [Official documentation](https://api.keywordseverywhere.com/docs/#/)
 
 ## Changelog
 
