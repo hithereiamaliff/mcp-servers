@@ -1,5 +1,7 @@
 # Keywords Everywhere MCP Server
 
+[![smithery badge](https://smithery.ai/badge/@hithereiamaliff/mcp-servers)](https://smithery.ai/server/@hithereiamaliff/mcp-servers)
+
 A Model Context Protocol (MCP) server that provides access to the Keywords Everywhere API for SEO research and keyword analysis. This server enables AI assistants like Claude to perform keyword research, analyze search volumes, get competition data, and access various SEO metrics.
 
 ## Features
@@ -13,6 +15,14 @@ A Model Context Protocol (MCP) server that provides access to the Keywords Every
 - **Multi-Country Support**: Analyze keywords across different countries and currencies
 
 ## Installation
+
+### Installing via Smithery
+
+To install mcp-servers for Claude Desktop automatically via [Smithery](https://smithery.ai/server/@hithereiamaliff/mcp-servers):
+
+```bash
+npx -y @smithery/cli install @hithereiamaliff/mcp-servers --client claude
+```
 
 ### Prerequisites
 
