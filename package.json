@@ -1,11 +1,11 @@
 {
-  "name": "keywords-everywhere",
+  "name": "mcp-keywords-everywhere",
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
   "description": "MCP server for Keywords Everywhere API integration",
   "bin": {
-    "keywords-everywhere": "./index.js"
+    "mcp-keywords-everywhere": "./index.js"
   },
   "scripts": {
     "start": "node index.js",
