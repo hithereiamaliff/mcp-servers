@@ -5,27 +5,48 @@
  * by properly handling file paths and ESM URL schemes.
  */
 
-const { spawn } = require('child_process');
-const { join } = require('path');
-const { pathToFileURL } = require('url');
+/**
+ * Simple start script for the Malaysia Open Data MCP server
+ * Uses direct CLI invocation for better compatibility on Windows
+ */
 
-// Convert the config path to a proper file:// URL
-const configPath = join(__dirname, 'smithery.config.cjs');
-const configUrl = pathToFileURL(configPath).href;
+const { spawn } = require('child_process');
+const path = require('path');
 
 console.log('Starting Malaysia Open Data MCP server...');
-console.log(`Config path: ${configPath}`);
-console.log(`Config URL: ${configUrl}`);
 
-// Spawn the Smithery CLI process
-const smithery = spawn('npx', ['@smithery/cli', 'dev', '--config', configPath], {
+// Get the absolute path to the config file
+const configPath = path.resolve(__dirname, 'smithery.config.cjs');
+console.log('Config path:', configPath);
+
+// Use npx to run the Smithery CLI with explicit parameters
+const smithery = spawn('cmd.exe', [
+  '/c', 
+  'npx', 
+  '@smithery/cli', 
+  'dev', 
+  '--config', 
+  configPath,
+  '--port',
+  '8182'
+], {
   stdio: 'inherit',
-  shell: true
+  cwd: process.cwd(),
+  env: {
+    ...process.env,
+    NODE_OPTIONS: '--no-warnings'
+  }
 });
 
-// Handle process events
-smithery.on('close', (code) => {
-  console.log(`Smithery MCP server exited with code ${code}`);
+// Handle process exit
+process.on('SIGINT', () => {
+  console.log('\nStopping MCP server...');
+  smithery.kill();
+});
+
+smithery.on('exit', (code) => {
+  console.log(`\nSmithery MCP server exited with code ${code}`);
+  process.exit(code);
 });
 
 // Handle errors

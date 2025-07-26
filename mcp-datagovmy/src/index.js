@@ -44,6 +44,6 @@ function server({ sessionId, config }) {
   };
 }
 
-// Export the server function
+// Export the server function for CommonJS
 module.exports = server;
 module.exports.default = server;

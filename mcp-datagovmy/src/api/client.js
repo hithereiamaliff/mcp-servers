@@ -8,11 +8,8 @@
  */
 
 const axios = require('axios');
-const pLimitModule = require('p-limit');
+const pLimit = require('p-limit');
 const { buildQueryParams } = require('../utils/query-builder');
-
-// p-limit has a default export, so we need to access it correctly
-const pLimit = pLimitModule.default || pLimitModule;
 
 // Base URL for all API requests
 const BASE_URL = 'https://api.data.gov.my';

@@ -11,7 +11,7 @@ module.exports = {
   displayName: 'Malaysia Open Data MCP',
   description: 'MCP server for accessing Malaysia\'s Open Data APIs',
   version: '1.0.0',
-  entry: './src/index.js',
+  entry: './server.cjs',
   tools: {
     // Data Catalogue Tools
     list_datasets: {

@@ -4,7 +4,8 @@
  * Tools for accessing and searching the Malaysia Open Data Catalogue
  */
 
-const { createCatalogueClient } = require('../api/catalogue');
+// Import the createCatalogueClient function directly
+const createCatalogueClient = require('../api/catalogue');
 
 // Create client instance with default configuration
 const catalogueClient = createCatalogueClient();

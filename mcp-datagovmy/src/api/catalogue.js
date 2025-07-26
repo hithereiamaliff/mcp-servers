@@ -61,6 +61,7 @@ function createCatalogueClient(options = {}) {
   };
 }
 
-module.exports = {
-  createCatalogueClient
-};
+// Export both as a named export and as the default export for maximum compatibility
+module.exports = createCatalogueClient;
+module.exports.createCatalogueClient = createCatalogueClient;
+module.exports.default = createCatalogueClient;
